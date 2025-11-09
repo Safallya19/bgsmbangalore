@@ -182,19 +182,19 @@ export default function Welcome({ onRegisterClick }) {
           <h2>Contact Us</h2>
           <div className="contact-grid">
             <div className="contact-card">
-              <h3>Krishna Didi</h3>
+              <h3>Summit Mistry Bhai</h3>
               <div className="contact-info">
-                <p className="contact-role">Program Coordinator</p>
+                <p className="contact-role">Account Head</p>
                 <p className="contact-divider">•</p>
-                <p className="contact-email">krishna.didi@bgsm.org</p>
+                <p className="contact-email">summit.mistry@brajgoika.org</p>
               </div>
             </div>
             <div className="contact-card">
-              <h3>Chetana Didi</h3>
+              <h3>Dr.Srihari Bhai</h3>
               <div className="contact-info">
-                <p className="contact-role">Administrative Head</p>
+                <p className="contact-role">Unit Coordinator</p>
                 <p className="contact-divider">•</p>
-                <p className="contact-email">chetana.didi@bgsm.org</p>
+                <p className="contact-email">dr.hari@brajgoika.org</p>
               </div>
             </div>
           </div>
