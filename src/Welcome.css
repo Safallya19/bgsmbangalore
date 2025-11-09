@@ -31,8 +31,8 @@
 }
 
 .hero-section {
-  background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
-  color: white;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+  color: #2c3e50;
   text-align: center;
   padding: 3rem 2rem;
   max-height: 400px;
@@ -49,7 +49,8 @@
 
 .subtitle {
   font-size: 1.25rem;
-  opacity: 0.9;
+  opacity: 0.75;
+  color: #34495e;
 }
 
 /* Content Grid Section */
@@ -120,6 +121,7 @@
 .tulsi-vivah-gallery {
   width: 100%;
   overflow: hidden;
+  position: relative;
 }
 
 .gallery-main {
@@ -127,35 +129,67 @@
   height: 300px;
   overflow: hidden;
   border-radius: 8px 8px 0 0;
+  position: relative;
 }
 
 .gallery-main .main-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: opacity 0.5s ease;
   cursor: pointer;
 }
 
-.gallery-thumbnails {
+.gallery-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.7);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.gallery-nav:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.gallery-nav.prev {
+  left: 10px;
+}
+
+.gallery-nav.next {
+  right: 10px;
+}
+
+.gallery-dots {
+  display: flex;
+  justify-content: center;
   gap: 8px;
-  padding: 8px;
+  padding: 12px;
   background: rgba(0, 0, 0, 0.05);
 }
 
-.gallery-thumbnails .thumbnail {
-  width: calc(50% - 4px);
-  height: 100px;
-  object-fit: cover;
-  border-radius: 4px;
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
   cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: all 0.3s ease;
 }
 
-.gallery-thumbnails .thumbnail:hover {
-  transform: scale(1.05);
-  opacity: 0.9;
+.dot.active {
+  background: #4a90e2;
+  transform: scale(1.2);
 }
 
 .image-card:hover .image-wrapper img {
@@ -238,6 +272,28 @@
 
 .register-button:hover {
   background-color: #ff5252;
+  transform: translateY(-2px);
+}
+
+.social-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  padding: 0.75rem 2rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.facebook-button {
+  background-color: #1877f2;
+  color: white;
+}
+
+.facebook-button:hover {
+  background-color: #166fe5;
   transform: translateY(-2px);
 }
 

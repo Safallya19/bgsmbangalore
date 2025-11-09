@@ -5,6 +5,36 @@ import ImageModal from './ImageModal';
 export default function Welcome({ onRegisterClick }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageAlt, setImageAlt] = useState('');
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const galleryImages = [
+    { src: require('./assets/tulsi-vivah.jpg'), alt: 'Tulsi Vivah Main Celebration' },
+    { src: require('./assets/tulsi-vivah-2.jpg'), alt: 'Tulsi Vivah Devotees' },
+    { src: require('./assets/tulsi-vivah-3.jpg'), alt: 'Tulsi Vivah Ceremony' }
+  ];
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => 
+        prevIndex === galleryImages.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 3000); // Change image every 3 seconds
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const handlePrevImage = () => {
+    setCurrentImageIndex(prevIndex => 
+      prevIndex === 0 ? galleryImages.length - 1 : prevIndex - 1
+    );
+  };
+
+  const handleNextImage = () => {
+    setCurrentImageIndex(prevIndex => 
+      prevIndex === galleryImages.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
   return (
     <div className="welcome-container">
       <header className="main-header">
@@ -12,6 +42,14 @@ export default function Welcome({ onRegisterClick }) {
           <img src={require('./assets/bgsm.png')} alt="BGSM Logo" className="main-logo" />
         </div>
         <nav className="main-nav">
+          <a 
+            href="https://www.facebook.com/profile.php?id=61580862766074" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="social-button facebook-button"
+          >
+            <i className="fab fa-facebook-f"></i> Follow us
+          </a>
           <button onClick={onRegisterClick} className="register-button">
             Register Now
           </button>
@@ -30,35 +68,26 @@ export default function Welcome({ onRegisterClick }) {
             <div className="content-card image-card">
               <div className="tulsi-vivah-gallery">
                 <div className="gallery-main">
+                  <button className="gallery-nav prev" onClick={handlePrevImage}>❮</button>
                   <img 
-                    src={require('./assets/tulsi-vivah.jpg')} 
-                    alt="Tulsi Vivah Main Celebration" 
+                    src={galleryImages[currentImageIndex].src} 
+                    alt={galleryImages[currentImageIndex].alt} 
                     className="main-image" 
-                    onClick={(e) => {
-                      setSelectedImage(e.target.src);
-                      setImageAlt(e.target.alt);
+                    onClick={() => {
+                      setSelectedImage(galleryImages[currentImageIndex].src);
+                      setImageAlt(galleryImages[currentImageIndex].alt);
                     }}
                   />
+                  <button className="gallery-nav next" onClick={handleNextImage}>❯</button>
                 </div>
-                <div className="gallery-thumbnails">
-                  <img 
-                    src={require('./assets/tulsi-vivah-2.jpg')} 
-                    alt="Tulsi Vivah Devotees" 
-                    className="thumbnail" 
-                    onClick={(e) => {
-                      setSelectedImage(e.target.src);
-                      setImageAlt(e.target.alt);
-                    }}
-                  />
-                  <img 
-                    src={require('./assets/tulsi-vivah-3.jpg')} 
-                    alt="Tulsi Vivah Ceremony" 
-                    className="thumbnail" 
-                    onClick={(e) => {
-                      setSelectedImage(e.target.src);
-                      setImageAlt(e.target.alt);
-                    }}
-                  />
+                <div className="gallery-dots">
+                  {galleryImages.map((_, index) => (
+                    <span 
+                      key={index} 
+                      className={`dot ${index === currentImageIndex ? 'active' : ''}`}
+                      onClick={() => setCurrentImageIndex(index)}
+                    />
+                  ))}
                 </div>
               </div>
               <div className="card-content">
@@ -181,7 +210,24 @@ export default function Welcome({ onRegisterClick }) {
       <ImageModal 
         image={selectedImage}
         alt={imageAlt}
-        onClose={() => setSelectedImage(null)}
+        onClose={() => {
+          setSelectedImage(null);
+          setImageAlt('');
+        }}
+        onNext={() => {
+          const nextIndex = (currentImageIndex + 1) % galleryImages.length;
+          setCurrentImageIndex(nextIndex);
+          setSelectedImage(galleryImages[nextIndex].src);
+          setImageAlt(galleryImages[nextIndex].alt);
+        }}
+        onPrevious={() => {
+          const prevIndex = currentImageIndex === 0 ? galleryImages.length - 1 : currentImageIndex - 1;
+          setCurrentImageIndex(prevIndex);
+          setSelectedImage(galleryImages[prevIndex].src);
+          setImageAlt(galleryImages[prevIndex].alt);
+        }}
+        hasNext={true}
+        hasPrevious={true}
       />
     </div>
   );
